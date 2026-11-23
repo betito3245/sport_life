@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Life - Natación</title>
+
+    <!-- ESTILOS CSS UNIFICADOS -->
+    <style>
+        /* Reset y estilos base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            padding-bottom: 50px;
+        }
+
+        /* Menú de Navegación Principal */
+        .navbar {
+            background-color: #1a252f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .navbar .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            width: 220px;
+            font-size: 14px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Banner Promocional */
+        .promotion-banner {
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 35px;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        }
+
+        .promotion-banner h1 {
+            font-size: 38px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .promotion-banner p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Rejilla de Productos */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        /* Tarjeta de Producto */
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* Botones de Acción */
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            font-size: 14px;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-buy {
+            background-color: #0077b6;
+            color: white;
+        }
+
+        .btn-buy:hover {
+            background-color: #005689;
+        }
+
+        .btn-view {
+            background-color: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-view:hover {
+            background-color: #cbd5e0;
+        }
+
+        /* Estilos del Modal (Vista Ampliada de la Imagen) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        /* Sección de Registro de Compras */
+        .registro-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .registro-section h2 {
+            font-size: 24px;
+            color: #1a252f;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0077b6;
+            padding-bottom: 10px;
+        }
+
+        .tabla-compras {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .tabla-compras th, .tabla-compras td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tabla-compras th {
+            background-color: #f8fafc;
+            color: #4a5568;
+        }
+
+        .total-box {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        .registro-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn-save {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #219150;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Botones de Navegación Inferiores */
+        .navigation-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn-nav {
+            background-color: #34495e;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-nav:hover {
+            background-color: #1a252f;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú de Navegación Principal Superior -->
+    <nav class="navbar">
+        <div class="logo">Sport Life</div>
+        <ul class="nav-links">
+            <li><a href="Inicio.html">Inicio</a></li>
+            <li><a href="accesorios.html">Accesorios</a></li>
+            <li><a href="Ballet.html">Ballet</a></li>
+            <li><a href="calzado.html">Calzado</a></li>
+            <li><a href="Natacion.html" class="active">Natación</a></li>
+        </ul>
+        <div class="header-actions">
+            <input type="text" placeholder="Buscar productos..." class="search-bar">
+        </div>
+    </nav>
+
+    <!-- Banner de Categoría -->
+    <section class="promotion-banner">
+        <h1>Categoría Natación</h1>
+        <p>Los mejores trajes de baño y accesorios acuáticos</p>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <div class="container">
+        <main class="product-grid">
+
+            <div class="product-card">
+                <img src="../IMG/1.png" alt="Traje de baño">
+                <p class="product-name">Traje de baño</p>
+                <p class="product-price">MX$1,171.19</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Traje de baño', 1171.19)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/1.png', 'Traje de baño')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/2.png" alt="Traje de baño completo suelto">
+                <p class="product-name">Traje de baño completo suelto</p>
+                <p class="product-price">MX$124.47</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Traje de baño completo suelto', 124.47)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/2.png', 'Traje de baño completo suelto')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/3.png" alt="Playera de natación con mangas">
+                <p class="product-name">Playera de natación con mangas</p>
+                <p class="product-price">MX$31.48</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Playera de natación con mangas', 31.48)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/3.png', 'Playera de natación con mangas')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/4.png" alt="Playera blanca con mangas caballero">
+                <p class="product-name">Playera blanca con mangas caballero</p>
+                <p class="product-price">MX$357.23</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Playera blanca con mangas caballero', 357.23)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/4.png', 'Playera blanca con mangas caballero')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/5.png" alt="Ropa de natación para niño">
+                <p class="product-name">Ropa de natación para niño</p>
+                <p class="product-price">MX$1,171.19</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Ropa de natación para niño', 1171.19)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/5.png', 'Ropa de natación para niño')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/6.png" alt="2 Playeras con mangas caballero">
+                <p class="product-name">2 Playeras con mangas caballero</p>
+                <p class="product-price">MX$124.47</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('2 Playeras con mangas caballero', 124.47)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/6.png', '2 Playeras con mangas caballero')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/7.png" alt="Ropa de natación para niña">
+                <p class="product-name">Ropa de natación para niña</p>
+                <p class="product-price">MX$31.48</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Ropa de natación para niña', 31.48)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/7.png', 'Ropa de natación para niña')">Ver producto</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="../IMG/8.png" alt="Bolsa impermeable">
+                <p class="product-name">Bolsa impermeable</p>
+                <p class="product-price">MX$357.23</p>
+                <div class="card-buttons">
+                    <button class="btn btn-buy" onclick="comprarProducto('Bolsa impermeable', 357.23)">Comprar</button>
+                    <button class="btn btn-view" onclick="verProducto('../IMG/8.png', 'Bolsa impermeable')">Ver producto</button>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- APARTADO DE REGISTRO DE COMPRAS -->
+        <section class="registro-section">
+            <h2>Registro de Compras</h2>
+            <table class="tabla-compras">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-compras">
+                    <!-- Las compras agregadas aparecerán aquí -->
+                </tbody>
+            </table>
+
+            <div class="total-box">
+                Total acumulado: MX$<span id="total-precio">0.00</span>
+            </div>
+
+            <div class="registro-actions">
+                <button class="btn btn-save" onclick="guardarRegistro()">Guardar registro</button>
+                <button class="btn btn-delete" onclick="eliminarRegistro()">Eliminar registro</button>
+            </div>
+        </section>
+
+        <!-- Botones de navegación -->
+        <div class="navigation-footer">
+            <a href="Inicio.html" class="btn-nav">« Volver al Inicio</a>
+            <a href="accesorios.html" class="btn-nav">Ir a Accesorios »</a>
+        </div>
+    </div>
+
+    <!-- VENTANA EMERGENTE (MODAL) PARA VER PRODUCTO -->
+    <div id="modal-producto" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="cerrarModal()">&times;</span>
+            <img id="img-modal" src="" alt="Producto ampliado">
+            <h3 id="titulo-modal"></h3>
+        </div>
+    </div>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        let compras = [];
+        let total = 0;
+
+        // Función para agregar producto a la lista y sumar precio
+        function comprarProducto(nombre, precio) {
+            compras.push({ nombre, precio });
+            total += precio;
+            actualizarTabla();
+        }
+
+        // Función para actualizar la tabla del registro de compras
+        function actualizarTabla() {
+            const tbody = document.getElementById('lista-compras');
+            tbody.innerHTML = '';
+
+            compras.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.nombre}</td>
+                    <td>MX$${item.precio.toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('total-precio').innerText = total.toFixed(2);
+        }
+
+        // Función para guardar registro
+        function guardarRegistro() {
+            if (compras.length === 0) {
+                alert('No hay compras registradas para guardar.');
+                return;
+            }
+            alert('¡Registro de compras guardado correctamente!');
+        }
+
+        // Función para eliminar todo el registro de compras
+        function eliminarRegistro() {
+            if (compras.length === 0) {
+                alert('El registro de compras ya está vacío.');
+                return;
+            }
+
+            if (confirm('¿Estás seguro de que deseas eliminar todo el registro de compras?')) {
+                compras = [];
+                total = 0;
+                actualizarTabla();
+            }
+        }
+
+        // Función para ver el producto en grande
+        function verProducto(src, nombre) {
+            document.getElementById('img-modal').src = src;
+            document.getElementById('titulo-modal').innerText = nombre;
+            document.getElementById('modal-producto').style.display = 'flex';
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('modal-producto').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-producto');
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+
+</body>
+</html>

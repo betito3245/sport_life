@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tienda Online</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #8588ee;
+        }
+
+        /* BARRA SUPERIOR */
+        .barra-superior {
+            height: 98px;
+            background-color: #303030;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 12px;
+        }
+
+        .titulo {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+            height: 100%;
+        }
+
+        .registrate {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* CATEGORÍAS */
+        .categorias {
+            position: relative;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        .categorias span {
+            font-size: 16px;
+        }
+
+        /* MENÚ DESPLEGABLE */
+        .submenu {
+            display: none;
+
+            position: absolute;
+            top: 70px;
+            right: 0;
+
+            width: 180px;
+
+            background-color: #303030;
+
+            box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+
+            z-index: 10;
+        }
+
+        /* Aparece al pasar el cursor */
+        .categorias:hover .submenu {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+
+            padding: 15px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 16px;
+        }
+
+        .submenu a:hover {
+            background-color: #555555;
+        }
+
+        /* BARRA DE INFORMACIÓN */
+        .barra-info {
+            height: 32px;
+
+            background-color: #a59bb5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+
+            padding-left: 12px;
+
+            font-size: 17px;
+        }
+
+        /* CARRUSEL */
+        main {
+            display: flex;
+            justify-content: center;
+
+            padding-top: 20px;
+        }
+
+        .carrusel {
+            width: 710px;
+            height: 405px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        }
+
+        .carrusel img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        /* FLECHAS */
+        .flecha {
+            position: absolute;
+
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 38px;
+            height: 48px;
+
+            border: none;
+            border-radius: 50%;
+
+            background-color: rgba(255,255,255,0.85);
+
+            font-size: 38px;
+
+            cursor: pointer;
+
+            z-index: 5;
+        }
+
+        .flecha:hover {
+            background-color: white;
+        }
+
+        .izquierda {
+            left: -2px;
+        }
+
+        .derecha {
+            right: -2px;
+        }
+
+        /* PUNTOS */
+        .indicadores {
+            position: absolute;
+
+            bottom: 10px;
+
+            left: 0;
+            right: 0;
+
+            display: flex;
+            justify-content: center;
+
+            gap: 8px;
+        }
+
+        .punto {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background-color: rgba(255,255,255,0.55);
+        }
+
+        .punto.activo {
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- BARRA NEGRA -->
+    <header class="barra-superior">
+
+        <div class="titulo">
+            Tienda Online
+        </div>
+
+        <div class="menu">
+
+            <a href="registro.php" class="registrate">
+                Regístrate
+            </a>
+
+            <!-- CATEGORÍAS -->
+            <div class="categorias">
+
+                <span>
+                    Categorías ▼
+                </span>
+
+                <div class="submenu">
+
+                    <a href="calzado.html">Calzado</a>
+
+                    <a href="accesorios.html">Accesorio</a>
+
+                    <a href="Natacion.html">Natación</a>
+
+                    <a href="Ballet.html">Ballet</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- BARRA MORADA -->
+    <div class="barra-info">
+
+        Envíos gratis a partir de 800 pesos mxn, mas de 3000 productos deportivos a precios increíbles
+
+    </div>
+
+
+    <!-- CARRUSEL -->
+    <main>
+
+        <div class="carrusel">
+
+            <button class="flecha izquierda" onclick="anterior()">
+                ‹
+            </button>
+
+            <img
+                id="imagen"
+                src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1200&q=80"
+                alt="Producto deportivo"
+            >
+
+            <button class="flecha derecha" onclick="siguiente()">
+                ›
+            </button>
+
+
+            <div class="indicadores">
+
+                <span class="punto activo"></span>
+
+                <span class="punto"></span>
+
+                <span class="punto"></span>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const imagenes = [
+
+            "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1200&q=80",
+
+            "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=1200&q=80"
+
+        ];
+
+        let posicion = 0;
+
+        const imagen = document.getElementById("imagen");
+
+        const puntos = document.querySelectorAll(".punto");
+
+
+        function mostrarImagen() {
+
+            imagen.src = imagenes[posicion];
+
+            puntos.forEach((punto, indice) => {
+
+                punto.classList.remove("activo");
+
+                if (indice === posicion) {
+
+                    punto.classList.add("activo");
+
+                }
+
+            });
+
+        }
+
+
+        function siguiente() {
+
+            posicion++;
+
+            if (posicion >= imagenes.length) {
+
+                posicion = 0;
+
+            }
+
+            mostrarImagen();
+
+        }
+
+
+        function anterior() {
+
+            posicion--;
+
+            if (posicion < 0) {
+
+                posicion = imagenes.length - 1;
+
+            }
+
+            mostrarImagen();
+
+        }
+
+
+        setInterval(siguiente, 5000);
+
+    </script>
+
+</body>
+</html>
