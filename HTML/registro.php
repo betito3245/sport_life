@@ -32,7 +32,7 @@ if (isset($_GET['sesion']) && $_GET['sesion'] === 'cerrada') {
         </div>
     <?php endif; ?>
 
-    <form action="guardar.php" method="POST">
+    <form action="guardar.php" method="POST" autocomplete="off">
         <label for="nombre">Nombre:</label>
         <input id="nombre" type="text" name="nombre" required><br><br>
         
@@ -40,7 +40,7 @@ if (isset($_GET['sesion']) && $_GET['sesion'] === 'cerrada') {
         <input id="email" type="email" name="correo" required><br><br>
         
         <label for="contrasena">Contraseña:</label>
-        <input id="contrasena" type="password" name="contrasena" required><br><br>
+        <input id="contrasena" type="password" name="contrasena" autocomplete="new-password" required><br><br>
         
         <button type="submit">Registrarme</button>
     </form>
