@@ -1,3 +1,7 @@
+<?php
+session_start();
+$sesionActiva = isset($_SESSION['usuario']) || isset($_SESSION['correo']) || isset($_SESSION['id_usuario']);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,10 +48,24 @@
             height: 100%;
         }
 
-        .registrate {
+        .registrate,
+        .iniciar-sesion {
             color: white;
             text-decoration: none;
             font-size: 16px;
+        }
+
+        .cerrar-sesion {
+            background-color: #d9534f;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 5px;
+        }
+
+        .cerrar-sesion:hover {
+            background-color: #c9302c;
         }
 
         /* CATEGORÍAS */
@@ -222,9 +240,18 @@
 
         <div class="menu">
 
-            <a href="registro.php" class="registrate">
-                Regístrate
-            </a>
+            <?php if ($sesionActiva): ?>
+                <a href="logout.php" class="cerrar-sesion">
+                    Cerrar sesión
+                </a>
+            <?php else: ?>
+                <a href="iniciars.php" class="iniciar-sesion">
+                    Iniciar sesión
+                </a>
+                <a href="registro.php" class="registrate">
+                    Crear cuenta
+                </a>
+            <?php endif; ?>
 
             <!-- CATEGORÍAS -->
             <div class="categorias">

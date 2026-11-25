@@ -1,14 +1,14 @@
 <?php
-$servername= "localhost";
-$username= "root";
-$password= "";
-$dbname= "deporte";
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "deporte";
 
-//crear la conexion
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-//chekar la conexion
-if ($conn->connect_error){
-    die("connection failed:" . $conn->connect_error);
+if ($conn->connect_error) {
+    die("Error de conexión a la base de datos: " . $conn->connect_error);
 }
+
+$conn->set_charset("utf8mb4");
 ?>
