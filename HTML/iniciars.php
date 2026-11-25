@@ -33,12 +33,12 @@ session_start();
 
         <div class="grupo-input">
             <label for="correo">Correo electrónico</label>
-            <input id="correo" type="email" name="correo" placeholder="ejemplo@correo.com" required>
+           <input id="correo" type="email" name="correo" placeholder="ejemplo@correo.com" autocomplete="off" required>
         </div>
 
         <div class="grupo-input">
             <label for="password">Contraseña</label>
-            <input id="password" type="password" name="contrasena" placeholder="••••••••" required>
+           <input id="password" type="password" name="contrasena" placeholder="........" autocomplete="new-password" required>
         </div>
 
         <button type="submit" class="btn-submit">Iniciar Sesión</button>
