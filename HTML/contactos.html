@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contactos - Sport Life</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f4f4f4; }
+    nav { background: #111; padding: 15px; }
+    nav ul { list-style: none; display: flex; gap: 20px; justify-content: center; }
+    nav ul li { position: relative; }
+    nav ul li a { color: white; text-decoration: none; padding: 10px 15px; display: block; }
+    nav ul li a:hover { background: #ff6600; border-radius: 5px; }
+    .submenu { display: none; position: absolute; background: #222; top: 100%; left: 0; flex-direction: column; min-width: 180px; border-radius: 5px; }
+    .menu-desplegable:hover .submenu { display: flex; }
+    .contenedor { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; }
+    h1 { text-align: center; margin-bottom: 10px; color: #111; }
+    p { text-align: center; margin-bottom: 20px; color: #555; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+    button { width: 100%; margin-top: 20px; padding: 12px; background: #ff6600; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #e65c00; }
+    .datos { margin-top: 25px; text-align: center; color: #333; line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li class="menu-desplegable">
+        <a href="#">Productos ▼</a>
+        <ul class="submenu">
+          <li><a href="#">Ropa Deportiva</a></li>
+          <li><a href="#">Tenis</a></li>
+          <li><a href="#">Accesorios</a></li>
+        </ul>
+      </li>
+      <li class="menu-desplegable">
+        <a href="#">Contactos ▼</a>
+        <ul class="submenu">
+          <li><a href="contactos.html">Contáctanos</a></li>
+          <li><a href="#">Ubicación</a></li>
+          <li><a href="#">Redes Sociales</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Ventas</a></li>
+    </ul>
+  </nav>
+
+  <div class="contenedor">
+    <h1>Contáctanos</h1>
+    <p>¿Tienes dudas? Escríbenos y te contestamos pronto.</p>
+
+    <form>
+      <label>Nombre:</label>
+      <input type="text" placeholder="Tu nombre" required>
+
+      <label>Correo:</label>
+      <input type="email" placeholder="tu@correo.com" required>
+
+      <label>¿Sobre qué nos escribes?</label>
+      <select>
+        <option>Pedidos</option>
+        <option>Devoluciones</option>
+        <option>Productos</option>
+        <option>Otro</option>
+      </select>
+
+      <label>Mensaje:</label>
+      <textarea rows="4" placeholder="Escribe tu mensaje..."></textarea>
+
+      <button type="submit">Enviar mensaje</button>
+    </form>
+
+    <div class="datos">
+      <b>Sport Life</b><br>
+      📞 Teléfono: 555-123-4567<br>
+      📧 Correo: sportlife@ejemplo.com<br>
+      📍 Dirección: Valle Nacional, Oaxaca
+    </div>
+  </div>
+
+</body>
+</html>
